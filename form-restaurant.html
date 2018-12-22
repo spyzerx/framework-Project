@@ -5,16 +5,36 @@
   <meta charset="utf-8" />
   <title>Restaurant</title>
   <style>
+    
+    #rlbcorner{
+      border: 2px solid rgb(0, 123,255);
+      border-top-right-radius: 50px;
+      background-color: rgb(0,123,255);
 
+
+    }
+    #toplayer{
+      border: 2px solid rgb(0,123,255);
+      border-bottom-left-radius: 50px;
+      background-color: rgb(0,123,255);
+
+    }
+    h3,h2{
+      color:rgb(0,123,255) !important;
+    }
     h1{
-       color:blue;
+      
+    color: white !important; 
+   
      }
-    body{
-        background-image: url("./img/background");
-      }
+     #container-fluid{
+       background-image:url("./img/0background.jpg");
+     }
+   
       #div_resume {
         background-color: #6699ff;
-        border: 2px solid;
+        border-top-right-radius: 50px;
+        border: 2px solid  #6699ff  !important;
         padding: 5px;
       }
       #chair {
@@ -36,12 +56,13 @@
     </style>
   <link rel="stylesheet" href="./css/bootstrap.min.css" />
   <link rel="stylesheet" href="./css/jquery-ui.css" />
+ 
 </head>
 
 <body>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-12">
+      <div class="col-sm-12" >
 
 
         <h1>
@@ -51,10 +72,19 @@
 
       </div>
     </div>
+    <div class="row">
+        <br />
+        <br />
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10" id="toplayer">
+          
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
     <form class="was-validated" id="form1" name="form1" method="post" action="">
       <div class="row">
         <div class="col-sm-1"></div>
-        <div class="col-sm-5">
+        <div class="col-sm-5"id="ltcorner">
           <h2>Nous Sommes Heureux de vous Servir:</h2>
           <p>
             Ce formulaire permet de commander une table dans notre restaurant,
@@ -93,7 +123,7 @@
         <br />
 
         <hr />
-        <div class="col-sm-5">
+        <div class="col-sm-5" id="rtcorner">
           <br>
           <h3>Vos coordon&eacute;es:</h3>
 
@@ -256,7 +286,7 @@
         <br />
         <br />
         <div class="col-sm-1"></div>
-        <div class="col-sm-10">
+        <div class="col-sm-10" id="rlbcorner">
           <div id="div_resume" class="p-3 mb-2 bg-primary text-white">
             Afficher le r&eacute;sum&eacute; ici ...
           </div>

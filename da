@@ -1,0 +1,11 @@
+ <div class="row">
+        <br />
+        <br />
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10" id="rlbcorner">
+          <div id="div_resume" class="p-3 mb-2 bg-primary text-white">
+            Afficher le r&eacute;sum&eacute; ici ...
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
