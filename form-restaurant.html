@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Restaurant</title>
+  <style>
+
+    h1{
+       color:blue;
+     }
+    body{
+        background-image: url("./img/background");
+      }
+      #div_resume {
+        background-color: #6699ff;
+        border: 2px solid;
+        padding: 5px;
+      }
+      #chair {
+        height: 175px;
+        width: 100px;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        
+      }
+      .col-sm-1{
+        background-color: rgb(0,123,255);
+      }
+      .col-sm-12{
+        background-color: rgb(0,123,255);
+      }
+    </style>
+  <link rel="stylesheet" href="./css/bootstrap.min.css" />
+  <link rel="stylesheet" href="./css/jquery-ui.css" />
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+
+
+        <h1>
+          <center>Commandez votre table</center>
+        </h1>
+
+
+      </div>
+    </div>
+    <form class="was-validated" id="form1" name="form1" method="post" action="">
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <h2>Nous Sommes Heureux de vous Servir:</h2>
+          <p>
+            Ce formulaire permet de commander une table dans notre restaurant,
+            ensuite vous pouvez commande vos plats. Il faudra aussi indiquer vos
+            coordonn&eacute;es et dans le cas de plusieurs personne, indiquer le nom
+            de chacun d'entre eux.
+          </p>
+          
+
+          Table pour combien de personnes ?
+          <div class="form-group">
+            <select name="nbp" id="nbp" class="custom-select" required>
+              <option value="">--Veuillez choisir---</option>
+              <option value="1">Une place</option>
+              <option value="2">Deux places</option>
+              <option value="4">4 places</option>
+              <option value="6">6 places</option>
+            </select>
+            <div class="invalid-feedback">
+              Au moins un seul personne pour reserver
+            </div>
+            <div class="valid-feedback">-20% Pour le 6<sup>émé</sup></div>
+            <br />
+            <div id="chaises"></div>
+          </div>
+          <br />
+          <div class="form-group">
+            A quelle date vous allez venir ?
+            <input name="date" type="text" id="date" class="form-control was-valid" placeholder="Choisir la date ici"
+              required />
+            <div class="invalid-feedback">Choisir une date !</div>
+            <div class="valid-feedback">Bien choisi</div>
+          </div>
+        </div>
+
+        <br />
+
+        <hr />
+        <div class="col-sm-5">
+          <br>
+          <h3>Vos coordon&eacute;es:</h3>
+
+          <div>
+            Civilit&eacute; :
+            <div class="custom-control custom-radio ">
+              <input name="civilite" type="radio" class="custom-control-input" id="customControlValidation1" value="mme"
+                required />
+              <label class="custom-control-label" for="customControlValidation1">Madamme</label>
+            </div>
+            <div class="custom-control custom-radio ">
+              <input name="civilite" type="radio" class="custom-control-input" id="customControlValidation2" value="mlle"
+                required />
+              <label class="custom-control-label" for="customControlValidation2">Mademoiselle</label>
+            </div>
+            <div class="custom-control custom-radio ">
+              <input type="radio" class="custom-control-input" id="customControlValidation3" name="civilite" value="m"
+                required />
+              <label class="custom-control-label" for="customControlValidation3">Monsieur</label>
+              <div class="invalid-feedback">Choisi votre Civiliter</div>
+            </div>
+          </div>
+
+          <br />
+          <div class="form-group">
+            <label for="nom">Nom et pr&eacute;nom :</label>
+            <input name="nom" class="form-control is-valid" type="text" id="nom" size="60" placeholder="Ecrire votre nom et prenom"
+              required />
+
+            <div class="invalid-feedback">choisir votre nom.</div>
+          </div>
+
+          <br />
+          <div>
+            <label for="phone">N&deg; de t&eacute;l&eacute;phone :</label>
+            <input name="tel" class="form-control is-valid" type="number" id="tel" placeholder="Entrer votre numero de telephone exemple 99 999 999"
+              required />
+            <div class="invalid-feedback">
+              choisir N&deg; de t&eacute;l&eacute;phone.
+            </div>
+          </div>
+          <br />
+          <div id="div_accompagnateurs">
+            Liste des accompagnateurs (une personne par ligne): <br />
+            <textarea name="accompagnateurs" cols="60" rows="4" id="accompagnateurs"></textarea>
+            <br />
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+
+      </div>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          <hr />
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <h2>Que voulez-vous manger ?</h2>
+
+          <label>
+            <input name="cmd" type="checkbox" value="Salade" data-prix="5" class="menuC" />
+            Salade</label>
+
+          <label>
+            <br />
+            <input name="cmd" type="checkbox" value="Soupe" data-prix="2.5" class="menuC" />
+            Soupe
+          </label>
+          <br />
+          <label>
+            <input name="cmd" type="checkbox" value="Couscous" data-prix="15.5" class="menuC" />
+            Couscous</label>
+
+          <label>
+            <input name="cmd" type="checkbox" value="Riz" data-prix="12" class="menuC" />
+            Riz</label>
+            <br />
+          <label>
+            <input name="cmd" type="checkbox" value="lasagna" data-prix="20.5" class="menuC" />
+            Lasagna</label>
+          
+          <label>
+              <input name="cmd" type="checkbox" value="Spagetti" data-prix="12.5" class="menuC" />
+              Spagetti</label>
+            <br />
+          <label>
+            <input name="cmd" type="checkbox" value="Fruits" data-prix="7" class="menuC" />
+            Fruits
+          </label>
+          <label>
+            <input name="cmd" type="checkbox" value="Gateaux" data-prix="6.4" class="menuC" />
+            Gateaux</label>
+        </div>
+        <div class="col-sm-5">
+            <!--  carousselle---------------------------------------------------------------------------->
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item py-5 active">
+                        <div class="row">
+                            <div class="col-sm-6"><img src="./img/1soupe.jpg" alt="soupe" style="width:108%;"></div>
+                            <div class="col-sm-6"><img src="./img/2soupe.jpg" alt="soupe vert" style="width:101%;"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-item py-5">
+                        <div class="row">
+                            <div class="col-sm-6"><img src="./img/3salade.jpg" alt="salade" style="width:108%;"></div>
+                            <div class="col-sm-6"><img src="./img/4couscous.jpg" alt="Couscous" style="width:108%;"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-item py-5">
+                        <div class="row">
+                            <div class="col-sm-6"><img src="./img/5lasagne.jpg" alt="Lasagna" style="width:108%;"></div>
+                            <div class="col-sm-6"><img src="./img/6spagetti.jpg" alt="Spagetti" style="width:96%;"></div>
+                        </div>
+                    </div>
+                    <div class="carousel-item py-5">
+                        <div class="row">
+                            <div class="col-sm-6"><img src="./img/7riz.jpg" alt="Riz" style="width:108%;"></div>
+                            <div class="col-sm-6"><img src="./img/8gateaux.jpg" alt="Gateaux" style="width:105%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+        </div>
+              <!--  carousselle---------------------------------------------------------------------------->
+          </div>
+   
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          <hr />
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+
+
+      <div class="row">
+        <br />
+        <div class="col-sm-1"></div>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-4">
+          <input name="b1" class="btn btn-lg btn-primary" type="button" id="b1" value="Valider ma commande" />
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="row">
+        <br />
+        <br />
+        <div class="col-sm-1"></div>
+        <div class="col-sm-10">
+          <div id="div_resume" class="p-3 mb-2 bg-primary text-white">
+            Afficher le r&eacute;sum&eacute; ici ...
+          </div>
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12"><br><p>&nbsp;</p></div>
+      </div>
+
+      </div>
+      
+    </form>
+    
+    <script src="./js/jquery-3.3.1.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/jquery-ui.js"></script>
+  </div>
+</body>
+
+<!-- Les code Javascript CI-DESSOUS uniquement -->
+<script>
+  $(document).ready(function () {
+    $("#div_resume").hide();
+    $("#nbp").change(function () {
+      if ($("#nbp").val() == 1) {
+        $("#accompagnateurs").removeAttr("disabled");
+        $("#accompagnateurs").attr("disabled", true);
+      } else $("#accompagnateurs").removeAttr("disabled");
+    });
+
+    $("#nbp").change(function () {
+      var nbchaire = $(this)
+        .children("option:selected")
+        .val();
+
+      switch (nbchaire) {
+        case "1":
+          $("#chaises").empty();
+          $("#chaises").append('<img id="chair" src="./img/chair.png" />');
+          $("*#chair")
+            .fadeOut(300)
+            .fadeIn(300);
+          break;
+        case "2":
+          $("#chaises").empty();
+          $("#chaises").append('<img id="chair" src="./img/chair.png" />');
+          $("#chaises").append('<img id="chair" src="./img/chair.png" />');
+          $("*#chair")
+            .fadeOut(300)
+            .fadeIn(300);
+          break;
+        case "4":
+          $("#chaises").empty();
+          for (i = 0; i < 4; i++) {
+            $("#chaises").append('<img id="chair" src="./img/chair.png" />');
+          }
+          $("*#chair")
+            .fadeOut(300)
+            .fadeIn(300);
+          break;
+        case "6":
+          $("#chaises").empty();
+          for (i = 0; i < 6; i++) {
+            $("#chaises").append('<img id="chair" src="./img/chair.png" />');
+          }
+          $("*#chair")
+            .fadeOut(300)
+            .fadeIn(300);
+          break;
+        default:
+          $("#chaises").empty();
+          break;
+      }
+    });
+
+    $("#date").datepicker({
+      startDate: "+1d"
+    });
+
+    $("#b1").click(function () {
+      test = true;
+      document.getElementById("div_resume").innerHTML = "";
+      $("#div_resume").hide();
+      console.log($("input[name='civilite']:checked").val());
+      
+      a = $("#nbp").val();
+      truenb = parseInt(a);
+     
+
+     
+      var cmd =[];
+      
+      prix = 0;
+      $.each($("input[name='cmd']:checked"), function () {
+        cmd.push($(this).val());
+        prix += Number($(this).attr("data-prix"));
+      
+      });
+      console.log(typeof(cmd))
+      console.log(cmd)
+      console.log(cmd.length)
+      //-------
+      if ($("#nbp").children("option:selected").val() == "") {
+        alert("Veuillez selectionner le nombre de places ");
+        test = false;
+      } else if ($("#date").val() == "") {
+        alert("Veuillez choisir  date !! ");
+        test = false;
+      } else if (
+        !document.getElementById("customControlValidation1").checked &&
+        !document.getElementById("customControlValidation2").checked &&
+        !document.getElementById("customControlValidation3").checked
+      ) {
+        alert("Choisir votre Civilité");
+        test = false;
+      } else if ($("#nom").val() == "") {
+        test = false;
+        alert("Ecrire votre nom et prenom");
+      } else if ($("#tel").val() == "") {
+
+          test = false;
+          alert("Ecrire N° de téléphone.");
+
+
+      } else if (truenb !== 1) {
+        var text = $("#accompagnateurs").val();
+        var lines = text.split("\n");
+        var count = lines.length;
+        Number(count);
+        count++;
+        if (truenb !== count) {
+          alert("donner tous les nom des personnes chaqun par un ligne");
+          test = false;
+        }
+      }  if (prix==0 ||cmd.length < 1) {
+        alert("Choisir que voulez vous manger");
+        test = false;
+      }
+      if (test == true) {
+        document.getElementById("div_resume").innerHTML = "";
+        var lescmd = "";
+        for (i = 0; i < cmd.length; i++) {
+          lescmd += "<li>" + cmd[i] + "</li>";
+        }
+
+        civil = $("input[name='civilite']:checked").val();
+        if (civil == "m") {
+          civil = "Monsieur";
+        } else if (civil == "mme") {
+          civil = "Madamme";
+        } else if (civil == "mlle") {
+          civil = "Mademoiselle";
+        }
+
+        resume =
+          "Bonjour " +
+          civil +
+          " <b>" +
+          $("#nom").val() +
+          " ,</b> <br/ >" +
+          "Votre commande du <u>" +
+          $("#date").val() +
+          " </u> a bien  été validée <br />" +
+          "les plat commandés sont : <ul> " +
+          lescmd +
+          "</ul>Le montant total de la commande  est de <b>" +
+          prix +
+          "</b> Dinars "+
+          "<br> au rendez Vous ";
+
+        document.getElementById("div_resume").innerHTML = resume;
+        $("#div_resume").slideDown(1000).show();
+      }
+    });
+  });
+</script>
+
+</html>
