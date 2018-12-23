@@ -5,13 +5,23 @@
   <meta charset="utf-8" />
   <title>Restaurant</title>
   <style>
-    
+    #copyright{
+      color:rgb(0,123,255) !important;
+    }
     #rlbcorner{
       border: 2px solid rgb(0, 123,255);
       border-top-right-radius: 50px;
       background-color: rgb(0,123,255);
 
 
+    }
+   
+
+    
+    #imgs {
+       border-radius: 100%;
+       width:400px;
+       height: 400px;
     }
     #toplayer{
       border: 2px solid rgb(0,123,255);
@@ -118,11 +128,12 @@
             <div class="invalid-feedback">Choisir une date !</div>
             <div class="valid-feedback">Bien choisi</div>
           </div>
+          <img id="imgs" src="./img/m1.png">
         </div>
 
         <br />
 
-        <hr />
+        <hr   class="hr-primary"/>
         <div class="col-sm-5" id="rtcorner">
           <br>
           <h3>Vos coordon&eacute;es:</h3>
@@ -159,17 +170,20 @@
           <br />
           <div>
             <label for="phone">N&deg; de t&eacute;l&eacute;phone :</label>
-            <input name="tel" class="form-control is-valid" type="number" id="tel" placeholder="Entrer votre numero de telephone exemple 99 999 999"
+            <input name="tel" class="form-control is-valid" type="number" id="tel" placeholder="Entrer votre numero de telephone exemple 99000999"
               required />
             <div class="invalid-feedback">
-              choisir N&deg; de t&eacute;l&eacute;phone.
+              choisir N&deg; de t&eacute;l&eacute;phone minimum 8 Chifre!.
             </div>
           </div>
           <br />
           <div id="div_accompagnateurs">
+            <div class="form-group">
             Liste des accompagnateurs (une personne par ligne): <br />
-            <textarea name="accompagnateurs" cols="60" rows="4" id="accompagnateurs"></textarea>
+            <textarea style="resize:none" class="form-control was-valid" name="accompagnateurs" cols="60" rows="4" id="accompagnateurs"></textarea>
+              <span id="linesUsed">0</span>
             <br />
+          </div>
           </div>
         </div>
         <div class="col-sm-1"></div>
@@ -178,7 +192,7 @@
       <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-10">
-          <hr />
+          <hr  class="hr-primary" />
         </div>
         <div class="col-sm-1"></div>
       </div>
@@ -222,7 +236,7 @@
             Gateaux</label>
         </div>
         <div class="col-sm-5">
-            <!--  carousselle---------------------------------------------------------------------------->
+            
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item py-5 active">
@@ -259,7 +273,7 @@
                     <span class="sr-only">Next</span>
                 </a>
         </div>
-              <!--  carousselle---------------------------------------------------------------------------->
+              
           </div>
    
         <div class="col-sm-1"></div>
@@ -267,7 +281,7 @@
       <div class="row">
         <div class="col-sm-1"></div>
         <div class="col-sm-10">
-          <hr />
+          <hr  class="hr-primary" />
         </div>
         <div class="col-sm-1"></div>
       </div>
@@ -276,7 +290,7 @@
       <div class="row">
         <br />
         <div class="col-sm-1"></div>
-        <div class="col-sm-6"></div>
+        <div class="col-sm-6"><h1 id="copyright">Developed by Nabil ben Hamissa</h1> 2017-2018&copy;</div>
         <div class="col-sm-4">
           <input name="b1" class="btn btn-lg btn-primary" type="button" id="b1" value="Valider ma commande" />
         </div>
@@ -310,6 +324,29 @@
 <!-- Les code Javascript CI-DESSOUS uniquement -->
 <script>
   $(document).ready(function () {
+
+//------------------
+   
+    var lines = Number($("#nbp").val());
+    var linesUsed = $('#linesUsed');
+
+    $('#accompagnateurs').keydown(function(e) {
+
+        newLines = $(this).val().split("\n").length;
+        linesUsed.text(newLines);
+
+        if(e.keyCode == 13 && newLines >= lines) {
+            linesUsed.css('color', 'red');
+            return false;
+        }
+        else {
+            linesUsed.css('color', 'green');
+        }
+    });
+//------------------
+
+
+
     $("#div_resume").hide();
     $("#nbp").change(function () {
       if ($("#nbp").val() == 1) {
@@ -330,14 +367,18 @@
           $("*#chair")
             .fadeOut(300)
             .fadeIn(300);
+            $("textarea").attr("rows","1");
+            txt="Aucun accompagnant ! "
+            document.getElementById("accompagnateurs").value = txt;
           break;
         case "2":
           $("#chaises").empty();
           $("#chaises").append('<img id="chair" src="./img/chair.png" />');
           $("#chaises").append('<img id="chair" src="./img/chair.png" />');
-          $("*#chair")
-            .fadeOut(300)
-            .fadeIn(300);
+          $("*#chair").fadeOut(300).fadeIn(300);
+          $("textarea").attr("rows","1");
+          txt="accompagnateur 1 : "
+            document.getElementById("accompagnateurs").value = txt;
           break;
         case "4":
           $("#chaises").empty();
@@ -347,8 +388,14 @@
           $("*#chair")
             .fadeOut(300)
             .fadeIn(300);
+            $("textarea").attr("rows","3");
+            txt="accompagnateur 1 : \naccompagnateur 2 : \naccompagnateur 3 :  ";
+            document.getElementById("accompagnateurs").value = txt;
           break;
         case "6":
+          $("textarea").attr("rows","5");
+          txt="accompagnateur 1 : \naccompagnateur 2 : \naccompagnateur 3 : \naccompagnateur 4 : \naccompagnateur 5 :  ";
+            document.getElementById("accompagnateurs").value = txt;
           $("#chaises").empty();
           for (i = 0; i < 6; i++) {
             $("#chaises").append('<img id="chair" src="./img/chair.png" />');
@@ -356,6 +403,7 @@
           $("*#chair")
             .fadeOut(300)
             .fadeIn(300);
+          
           break;
         default:
           $("#chaises").empty();
@@ -371,7 +419,7 @@
       test = true;
       document.getElementById("div_resume").innerHTML = "";
       $("#div_resume").hide();
-      console.log($("input[name='civilite']:checked").val());
+      
       
       a = $("#nbp").val();
       truenb = parseInt(a);
@@ -386,9 +434,7 @@
         prix += Number($(this).attr("data-prix"));
       
       });
-      console.log(typeof(cmd))
-      console.log(cmd)
-      console.log(cmd.length)
+      
       //-------
       if ($("#nbp").children("option:selected").val() == "") {
         alert("Veuillez selectionner le nombre de places ");
@@ -425,7 +471,22 @@
       }  if (prix==0 ||cmd.length < 1) {
         alert("Choisir que voulez vous manger");
         test = false;
+      } 
+      //-----------
+      var regPhone = /^(\d{8}|[+]\d{8})/;
+      if ((regPhone.test($("#tel").val()))==false) {
+       test=false;
+      alert("veuille enterer votre numero de telephone proproment + 8 chifre")
       }
+      var regName=/([A-Za-z]{1,30})(\s+[A-Za-z]{1,30}\D)(\D)/;
+      //[A-Za-z]+  ..\b[^\d\W]+\b  ([A-Za-z]{1,30})(\s+[A-Za-z]{1,30}\D)(\D)  \D([A-Za-z]{1,30}\s{0,3})  ([A-Za-z]{1,30})( +[A-Za-z]{1,30}\D)
+      if ((regName.test($("#nom").val()))==false) {
+       test=false;
+      alert("veuille enterer votre nom et prenom  proproment")
+      }
+
+           
+//--------------------
       if (test == true) {
         document.getElementById("div_resume").innerHTML = "";
         var lescmd = "";
